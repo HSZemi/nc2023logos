@@ -54,6 +54,15 @@
         </tr>
         </tbody>
     </table>
+    <h3>Border</h3>
+    <table>
+        <tbody>
+        <tr>
+            <td><input id="pick-border" type="text" value="#edca61" data-coloris>
+                <label for="pick-border">Border</label></td>
+        </tr>
+        </tbody>
+    </table>
 
 </div>
 <script src="js/coloris.min.js"></script>
@@ -131,6 +140,10 @@
             updateColour('cape', position, newValue);
         });
     }
+    document.getElementById('pick-border').addEventListener('change', (event) => {
+        let newValue = document.getElementById('pick-border').value;
+        updateColour('border', 'outline', newValue);
+    });
 
     setTimeout(() => {
         for (let element of document.querySelectorAll('input')) {

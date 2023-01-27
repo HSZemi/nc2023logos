@@ -9,8 +9,28 @@
         html {
             font-family: "Roboto", sans-serif;
         }
+
         #preview {
             max-width: 600px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        button.btn {
+            cursor: pointer;
+            padding: 1em 2em;
+            background: linear-gradient(to right, #00ffff, #d61eff);
+            font-size: 110%;
+            border: 0;
+            font-weight: bold;
+            color: #111;
+            transition: color .2s, background .2s;
+        }
+        button.btn:hover {
+            color: #eee;
+            background: linear-gradient(to bottom, #d61eff,  #00ffff);
         }
     </style>
 </head>
@@ -21,26 +41,81 @@
 </div>
 <div id="controls">
     <h2>Pick colours</h2>
-    <h3>Flags</h3>
-    <table>
-        <tbody>
-        <tr>
-            <td><input id="pick-left-top" type="text" value="#c1272d" data-coloris></td>
-            <td><input id="link-top" type="checkbox" checked><label for="link-top">link</label></td>
-            <td><input id="pick-right-top" type="text" value="#c1272d" data-coloris></td>
-        </tr>
-        <tr>
-            <td><input id="pick-left-centre" type="text" value="#f2e144" data-coloris></td>
-            <td><input id="link-centre" type="checkbox" checked><label for="link-centre">link</label></td>
-            <td><input id="pick-right-centre" type="text" value="#f2e144" data-coloris></td>
-        </tr>
-        <tr>
-            <td><input id="pick-left-bottom" type="text" value="#c1272d" data-coloris></td>
-            <td><input id="link-bottom" type="checkbox" checked><label for="link-bottom">link</label></td>
-            <td><input id="pick-right-bottom" type="text" value="#c1272d" data-coloris></td>
-        </tr>
-        </tbody>
-    </table>
+    <button class="btn" onclick="useHorizontalFlags()">Use horizontal flags</button>
+    <button class="btn" onclick="useVerticalFlags()">Use vertical flags</button>
+
+    <div id="horizontal-flags">
+        <h3>Flags (horizontal)</h3>
+        <table>
+            <tbody>
+            <tr>
+                <td><input id="pick-left-top" type="text" value="#c1272d" data-coloris></td>
+                <td><input id="link-top" type="checkbox" checked><label for="link-top">link</label></td>
+                <td><input id="pick-right-top" type="text" value="#c1272d" data-coloris></td>
+            </tr>
+            <tr>
+                <td><input id="pick-left-centre" type="text" value="#f2e144" data-coloris></td>
+                <td><input id="link-centre" type="checkbox" checked><label for="link-centre">link</label></td>
+                <td><input id="pick-right-centre" type="text" value="#f2e144" data-coloris></td>
+            </tr>
+            <tr>
+                <td><input id="pick-left-bottom" type="text" value="#c1272d" data-coloris></td>
+                <td><input id="link-bottom" type="checkbox" checked><label for="link-bottom">link</label></td>
+                <td><input id="pick-right-bottom" type="text" value="#c1272d" data-coloris></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="vertical-flags" class="hidden">
+        <h3>Flags (vertical)</h3>
+        <table>
+            <tbody>
+            <tr>
+                <td><input id="pick-v-left-left-top" type="text" value="#c1272d" data-coloris></td>
+                <td><input id="pick-v-left-middle-top" type="text" value="#ffffff" data-coloris></td>
+                <td><input id="pick-v-left-right-top" type="text" value="#009246" data-coloris></td>
+                <td><input id="link-v-top" type="checkbox" checked><label for="link-v-top">link</label></td>
+                <td><input id="pick-v-right-left-top" type="text" value="#009246" data-coloris></td>
+                <td><input id="pick-v-right-middle-top" type="text" value="#ffffff" data-coloris></td>
+                <td><input id="pick-v-right-right-top" type="text" value="#c1272d" data-coloris></td>
+            </tr>
+            <tr>
+                <td><input id="pick-v-left-left-middle" type="text" value="#c1272d" data-coloris></td>
+                <td><input id="pick-v-left-middle-middle" type="text" value="#ffffff" data-coloris></td>
+                <td><input id="pick-v-left-right-middle" type="text" value="#009246" data-coloris></td>
+                <td><input id="link-v-middle" type="checkbox" checked><label for="link-v-middle">link</label></td>
+                <td><input id="pick-v-right-left-middle" type="text" value="#009246" data-coloris></td>
+                <td><input id="pick-v-right-middle-middle" type="text" value="#ffffff" data-coloris></td>
+                <td><input id="pick-v-right-right-middle" type="text" value="#c1272d" data-coloris></td>
+            </tr>
+            <tr>
+                <td><input id="pick-v-left-left-bottom" type="text" value="#c1272d" data-coloris></td>
+                <td><input id="pick-v-left-middle-bottom" type="text" value="#ffffff" data-coloris></td>
+                <td><input id="pick-v-left-right-bottom" type="text" value="#009246" data-coloris></td>
+                <td><input id="link-v-bottom" type="checkbox" checked><label for="link-v-bottom">link</label></td>
+                <td><input id="pick-v-right-left-bottom" type="text" value="#009246" data-coloris></td>
+                <td><input id="pick-v-right-middle-bottom" type="text" value="#ffffff" data-coloris></td>
+                <td><input id="pick-v-right-right-bottom" type="text" value="#c1272d" data-coloris></td>
+            </tr>
+            <tr>
+                <td><input id="link-v-left-left" type="checkbox" checked><label for="link-v-left-left">link</label></td>
+                <td><input id="link-v-left-middle" type="checkbox" checked><label for="link-v-left-middle">link</label>
+                </td>
+                <td><input id="link-v-left-right" type="checkbox" checked><label for="link-v-left-right">link</label>
+                </td>
+                <td></td>
+                <td><input id="link-v-right-left" type="checkbox" checked><label for="link-v-right-left">link</label>
+                </td>
+                <td><input id="link-v-right-middle" type="checkbox" checked><label
+                        for="link-v-right-middle">link</label>
+                </td>
+                <td><input id="link-v-right-right" type="checkbox" checked><label for="link-v-right-right">link</label>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
     <h3>Cape</h3>
     <table>
         <tbody>
@@ -113,10 +188,57 @@
         }
     }
 
+    const updateYColour = (side, xPosition, yPosition, newValue) => {
+        const svgClass = `${side}-${xPosition}-${yPosition}`;
+        let cssRules = document.getElementById('svgitem').contentDocument.styleSheets[0].cssRules;
+        for (let i = 0; i < cssRules.length; i++) {
+            if (cssRules[i].selectorText === `.${svgClass}`) {
+                cssRules[i].style.fill = newValue;
+            }
+        }
+    }
+
     const updatePicker = (side, position, newValue) => {
         let element = document.getElementById(`pick-${side}-${position}`);
         element.value = newValue;
         element.dispatchEvent(new Event('input', {bubbles: true}));
+    }
+
+    const updateYPicker = (side, xPosition, yPosition, newValue) => {
+        let element = document.getElementById(`pick-v-${side}-${xPosition}-${yPosition}`);
+        element.value = newValue;
+        element.dispatchEvent(new Event('input', {bubbles: true}));
+    }
+
+    const useHorizontalFlags = () => {
+        for (let element of document.querySelectorAll('input')) {
+            element.dispatchEvent(new Event('change', {bubbles: true}));
+        }
+        document.getElementById('vertical-flags').classList.add('hidden');
+        document.getElementById('horizontal-flags').classList.remove('hidden');
+        for (let side of ['left', 'right']) {
+            for (let xPosition of ['left', 'middle', 'right']) {
+                for (let yPosition of ['top', 'middle', 'bottom']) {
+                    updateYColour(side, xPosition, yPosition, 'rgba(255,255,255,0)');
+                }
+            }
+        }
+        document.getElementById('pick-left-bottom').dispatchEvent(new Event('change', {bubbles: true}));
+        document.getElementById('pick-right-bottom').dispatchEvent(new Event('change', {bubbles: true}));
+    }
+    const useVerticalFlags = () => {
+        for (let element of document.querySelectorAll('input')) {
+            element.dispatchEvent(new Event('change', {bubbles: true}));
+        }
+        document.getElementById('vertical-flags').classList.remove('hidden');
+        document.getElementById('horizontal-flags').classList.add('hidden');
+        for (let side of ['left', 'right']) {
+            for (let position of ['top', 'centre', 'bottom']) {
+                updateColour(side, position, 'rgba(255,255,255,0)');
+            }
+        }
+        document.getElementById('pick-v-left-middle-bottom').dispatchEvent(new Event('change', {bubbles: true}));
+        document.getElementById('pick-v-right-middle-bottom').dispatchEvent(new Event('change', {bubbles: true}));
     }
 
     for (let side of ['left', 'right']) {
@@ -133,6 +255,39 @@
             })
         }
     }
+    for (let side of ['left', 'right']) {
+        for (let xPosition of ['left', 'middle', 'right']) {
+            for (let yPosition of ['top', 'middle', 'bottom']) {
+                let pickerId = `pick-v-${side}-${xPosition}-${yPosition}`;
+                document.getElementById(pickerId).addEventListener('change', (event) => {
+                    let newValue = document.getElementById(pickerId).value;
+                    updateYColour(side, xPosition, yPosition, newValue);
+                    if (document.getElementById(`link-v-${side}-${xPosition}`).checked) {
+                        updateYColour(side, xPosition, 'top', newValue);
+                        updateYPicker(side, xPosition, 'top', newValue);
+                        updateYColour(side, xPosition, 'middle', newValue);
+                        updateYPicker(side, xPosition, 'middle', newValue);
+                        updateYColour(side, xPosition, 'bottom', newValue);
+                        updateYPicker(side, xPosition, 'bottom', newValue);
+                    }
+                    if (document.getElementById(`link-v-${yPosition}`).checked) {
+                        const oppositeSide = side === 'left' ? 'right' : 'left';
+                        const oppositeRow = xPosition === 'middle' ? 'middle' : xPosition === 'left' ? 'right' : 'left';
+                        updateYColour(oppositeSide, oppositeRow, yPosition, newValue);
+                        updateYPicker(oppositeSide, oppositeRow, yPosition, newValue);
+                        if (document.getElementById(`link-v-${oppositeSide}-${oppositeRow}`).checked) {
+                            updateYColour(oppositeSide, oppositeRow, 'top', newValue);
+                            updateYPicker(oppositeSide, oppositeRow, 'top', newValue);
+                            updateYColour(oppositeSide, oppositeRow, 'middle', newValue);
+                            updateYPicker(oppositeSide, oppositeRow, 'middle', newValue);
+                            updateYColour(oppositeSide, oppositeRow, 'bottom', newValue);
+                            updateYPicker(oppositeSide, oppositeRow, 'bottom', newValue);
+                        }
+                    }
+                })
+            }
+        }
+    }
     for (let position of ['dark', 'highlight']) {
         const pickerId = `pick-cape-${position}`;
         document.getElementById(pickerId).addEventListener('change', (event) => {
@@ -146,10 +301,7 @@
     });
 
     setTimeout(() => {
-        for (let element of document.querySelectorAll('input')) {
-            console.log(element);
-            element.dispatchEvent(new Event('change', {bubbles: true}));
-        }
+        useHorizontalFlags();
     }, 500);
 
 

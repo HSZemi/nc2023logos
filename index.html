@@ -37,8 +37,8 @@
 <body>
 <h1>NC2023 Logo Generator</h1>
 <div id="preview">
-    <object id="svgitem" type="image/svg+xml" data="svg/Recurso_19.svg"></object>
 </div>
+<a id="logo-dl">Download svg</a>
 <div id="controls">
     <h2>Pick colours</h2>
     <button class="btn" onclick="useHorizontalFlags()">Use horizontal flags</button>
@@ -174,28 +174,28 @@
         if (h) return "rgb" + (f ? "a(" : "(") + r + "," + g + "," + b + (f ? "," + m(a * 1000) / 1000 : "") + ")";
         else return "#" + (4294967296 + r * 16777216 + g * 65536 + b * 256 + (f ? m(a * 255) : 0)).toString(16).slice(1, f ? undefined : -2)
     }
+
+    const setdownload = () => {
+        const text = document.querySelector('#preview').innerHTML;
+        const name = 'nc2023logo.svg';
+        const a = document.getElementById('logo-dl');
+        const file = new Blob([text], {type: 'text/svg'});
+        a.href = URL.createObjectURL(file);
+        a.download = name;
+    }
+
     const updateColour = (side, position, newValue) => {
         const svgClass = `${side}-${position}`;
         const lighterValue = pSBC(0.1, newValue);
-        let cssRules = document.getElementById('svgitem').contentDocument.styleSheets[0].cssRules;
-        for (let i = 0; i < cssRules.length; i++) {
-            if (cssRules[i].selectorText === `.${svgClass}`) {
-                cssRules[i].style.fill = newValue;
-            }
-            if (cssRules[i].selectorText === `.${svgClass}-border`) {
-                cssRules[i].style.fill = lighterValue;
-            }
-        }
+        let style = document.querySelector("#preview > svg > defs > style");
+        style.innerHTML = style.innerHTML.replace(RegExp(`\\.${svgClass}\\{.+\\}`), `.${svgClass}{fill:${newValue};}`);
+        style.innerHTML = style.innerHTML.replace(RegExp(`\\.${svgClass}-border\\{.+\\}`), `.${svgClass}-border{fill:${lighterValue};}`);
     }
 
     const updateYColour = (side, xPosition, yPosition, newValue) => {
         const svgClass = `${side}-${xPosition}-${yPosition}`;
-        let cssRules = document.getElementById('svgitem').contentDocument.styleSheets[0].cssRules;
-        for (let i = 0; i < cssRules.length; i++) {
-            if (cssRules[i].selectorText === `.${svgClass}`) {
-                cssRules[i].style.fill = newValue;
-            }
-        }
+        let style = document.querySelector("#preview > svg > defs > style");
+        style.innerHTML = style.innerHTML.replace(RegExp(`\\.${svgClass}\\{.+\\}`), `.${svgClass}{fill:${newValue};}`);
     }
 
     const updatePicker = (side, position, newValue) => {
@@ -225,6 +225,7 @@
         }
         document.getElementById('pick-left-bottom').dispatchEvent(new Event('change', {bubbles: true}));
         document.getElementById('pick-right-bottom').dispatchEvent(new Event('change', {bubbles: true}));
+        setdownload();
     }
     const useVerticalFlags = () => {
         for (let element of document.querySelectorAll('input')) {
@@ -239,6 +240,7 @@
         }
         document.getElementById('pick-v-left-middle-bottom').dispatchEvent(new Event('change', {bubbles: true}));
         document.getElementById('pick-v-right-middle-bottom').dispatchEvent(new Event('change', {bubbles: true}));
+        setdownload();
     }
 
     for (let side of ['left', 'right']) {
@@ -252,6 +254,7 @@
                     updateColour(otherSide, position, newValue);
                     updatePicker(otherSide, position, newValue);
                 }
+                setdownload();
             })
         }
     }
@@ -284,6 +287,7 @@
                             updateYPicker(oppositeSide, oppositeRow, 'bottom', newValue);
                         }
                     }
+                    setdownload();
                 })
             }
         }
@@ -303,6 +307,10 @@
     setTimeout(() => {
         useHorizontalFlags();
     }, 500);
+
+    fetch('svg/Recurso_19.svg')
+        .then(response => response.text())
+        .then(svg => document.getElementById('preview').innerHTML = svg);
 
 
 </script>

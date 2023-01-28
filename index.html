@@ -304,13 +304,12 @@
         updateColour('border', 'outline', newValue);
     });
 
-    setTimeout(() => {
-        useHorizontalFlags();
-    }, 500);
-
     fetch('svg/Recurso_19.svg')
         .then(response => response.text())
-        .then(svg => document.getElementById('preview').innerHTML = svg);
+        .then(svg => {
+            document.getElementById('preview').innerHTML = svg;
+            useHorizontalFlags();
+        });
 
 
 </script>

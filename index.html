@@ -219,7 +219,7 @@
         for (let side of ['left', 'right']) {
             for (let xPosition of ['left', 'middle', 'right']) {
                 for (let yPosition of ['top', 'middle', 'bottom']) {
-                    updateYColour(side, xPosition, yPosition, 'rgba(255,255,255,0)');
+                    updateYColour(side, xPosition, yPosition, 'none');
                 }
             }
         }
@@ -235,7 +235,7 @@
         document.getElementById('horizontal-flags').classList.add('hidden');
         for (let side of ['left', 'right']) {
             for (let position of ['top', 'centre', 'bottom']) {
-                updateColour(side, position, 'rgba(255,255,255,0)');
+                updateColour(side, position, 'none');
             }
         }
         document.getElementById('pick-v-left-middle-bottom').dispatchEvent(new Event('change', {bubbles: true}));
